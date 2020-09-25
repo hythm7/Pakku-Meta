@@ -1,0 +1,6 @@
+use Test;
+use Pakku::Meta;
+
+pass "replace me";
+
+done-testing;
