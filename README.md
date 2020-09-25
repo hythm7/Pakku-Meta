@@ -11,8 +11,8 @@ my $meta = Pakku::Meta.new: prefix => 'path/to/dist'.IO;
 
 say ~$meta.identity;     # github:camelia:MyModule:0.0.1
 
-say $meta.deps: :deps&lt;runtime&gt;;   # runtime  dependencies
-say $meta.deps: :deps&lt;requires&gt;;  # required dependencies
+say $meta.deps: :deps<runtime>;   # runtime  dependencies
+say $meta.deps: :deps<requires>;  # required dependencies
 ```
 
 DESCRIPTION
@@ -32,7 +32,7 @@ zef install Pakku::Meta
 METHODS
 =======
 Create a new object from `json`, `IO::Path` or `Hash`
-```
+```raku
 multi method new ( Str:D :$json! )        { ... }
 multi method new ( IO::Path:D :$prefix! ) { ... }
 multi method new ( :$meta! )              { ... }
@@ -40,14 +40,14 @@ multi method new ( :$meta! )              { ... }
 
 ### identity
 Returns `Identity` object that stringfies to `auth:name:ver`
-```
+```raku
 method identity ( ) { ... }
 ```
 
 ### deps
 Returns the dependencies (runtime, test, build, suggests, ...)
 
-```
+```raku
 multi method deps (                                  ) { ... }
 multi method deps ( Str:D  :$deps where 'suggests'   ) { ... }
 multi method deps ( Str:D  :$deps where 'recommends' ) { ... }
@@ -63,14 +63,14 @@ multi method deps ( Bool:D :$deps where not *.so     ) { ... }
 ### to-dist
 Mix in `Distribution::Locally`, and can be installed to `CompUnit::Repository::Installation`
 
-```
+```raku
 method to-dist ( ::?CLASS:D: IO :$prefix! ) { ... }
 ```
 
 ### to-json
 Returns `META` as `json`
 
-```
+```raku
 method to-json  ( ) { ... }
 ```
 
