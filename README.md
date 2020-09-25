@@ -19,6 +19,16 @@ DESCRIPTION
 ===========
 `Pakku::Meta` is a module to parse `Raku` `META` files
 
+INSTALLATION
+===========
+```
+pakku add Pakku::Meta
+
+# or 
+
+zef install Pakku::Meta
+```
+
 METHODS
 =======
 Create a new object from `json`, `IO::Path` or `Hash`
