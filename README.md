@@ -7,7 +7,7 @@ SYNOPSIS
 ```raku
 use Pakku::Meta;
 
-my $meta = Pakku::Meta.new: prefix => 'path/to/dist'.IO;
+my $meta = Pakku::Meta.new: 'path/to/dist'.IO;
 
 say ~$meta.identity;     # github:camelia:MyModule:0.0.1
 
@@ -33,9 +33,9 @@ METHODS
 =======
 Create a new object from `json`, `IO::Path` or `Hash`
 ```raku
-multi method new ( Str:D :$json! )        { ... }
-multi method new ( IO::Path:D :$prefix! ) { ... }
-multi method new ( :$meta! )              { ... }
+multi method new ( Str:D $json )        { ... }
+multi method new ( IO::Path:D $prefix ) { ... }
+multi method new ( %meta )              { ... }
 ```
 
 ### identity

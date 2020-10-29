@@ -59,7 +59,7 @@ END
 
 my %expected = %(${:build(${:requires($["System::Info"])}), :runtime(${:recommends($["JSON::Pretty"]), :requires($["Sereal:auth<cpan:*>:ver(1..*)", "curl:from<bin>", ["Archive::Compress", "Archive::Zlib"], {:from("bin"), :name(${"by-distro.name" => ${"" => "python2-config", :debian("python2.7-config"), :macosx("python2.7-config")}})}, {:hints(${"by-kernel.name" => ${:win32(${:checksum(${"sha-256" => "E6836E32802555593AEDAFE1CC00752CBDA"}), :target("resources/libraries/"), :url("http://www.p6c.org/~jnthn/libarchive/libarchive.dll")})}}), :name("archive:from<native>")}, "JSON::Fast"])}), :test(${:requires($["File::Temp"])})});
 
-my $meta  = Pakku::Meta.new: :$json;
+my $meta  = Pakku::Meta.new: $json;
 
 my %got =  $meta.deps.deepmap( *.Str );
 

@@ -208,18 +208,19 @@ submethod TWEAK ( ) {
 
 }
 
+proto method new ( | ) { * };
 
-multi method new ( Str:D :$json! ) {
+multi method new ( Str:D $json ) {
 
   my $meta = Rakudo::Internals::JSON.from-json: $json;
 
   die X::Pakku::Meta.new: meta => $json unless $meta;
 
-  samewith :$meta;
+  samewith $meta;
 
 }
 
-multi method new ( IO::Path:D :$prefix! ) {
+multi method new ( IO::Path:D $prefix ) {
 
   my @meta = <META6.json META6.info META.json META.info>;
 
@@ -231,26 +232,26 @@ multi method new ( IO::Path:D :$prefix! ) {
 
   $meta<source> = $prefix;
 
-  samewith :$meta;
+  samewith $meta;
 
 }
 
-multi method new ( :$meta! ) {
+multi method new ( %meta ) {
 
-  die X::Pakku::Meta.new: :$meta unless $meta<name>;
+  die X::Pakku::Meta.new: :%meta unless %meta<name>;
 
-  $meta<meta-version> = Version.new( $meta<meta-version> || 0   );
-  $meta<perl>         = Version.new( $meta<perl>         || '*' );
-  $meta<version>      = Version.new( $meta<version> // $meta<ver> // ''   );
-  $meta<api>          = Version.new( $meta<api>          // ''  );
+  %meta<meta-version> = Version.new( %meta<meta-version> || 0   );
+  %meta<perl>         = Version.new( %meta<perl>         || '*' );
+  %meta<version>      = Version.new( %meta<version> // %meta<ver> // ''   );
+  %meta<api>          = Version.new( %meta<api>          // ''  );
 
-  $meta<auth> //= $meta<authors>.head // '';
+  %meta<auth> //= %meta<authors>.head // '';
 
-  $meta<production> .= so if defined $meta<production>;
+  %meta<production> .= so if defined %meta<production>;
 
-  $meta{ grep { not defined $meta{ $_ } }, $meta.keys}:delete;
+  %meta{ grep { not defined %meta{ $_ } }, %meta.keys}:delete;
 
-  self.bless: :$meta, |$meta;
+  self.bless: :%meta, |%meta;
 }
 
 
