@@ -49,7 +49,7 @@ has $.build-depends;
 has $.test-depends;
 has $.resources;
 has $.tags;
-has $.source;
+has $.recman-src;
 
 
 has %.provides;
@@ -230,7 +230,7 @@ multi method new ( IO::Path:D $prefix ) {
 
   my $meta = Rakudo::Internals::JSON.from-json: $meta-file.slurp;
 
-  $meta<source> = $prefix;
+  $meta<recman-src> = $prefix;
 
   samewith $meta;
 
