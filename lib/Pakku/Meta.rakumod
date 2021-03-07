@@ -49,6 +49,7 @@ has $.build-depends;
 has $.test-depends;
 has $.resources;
 has $.tags;
+has $.path;
 has $.recman-src;
 
 
@@ -220,17 +221,17 @@ multi method new ( Str:D $json ) {
 
 }
 
-multi method new ( IO::Path:D $prefix ) {
+multi method new ( IO::Path:D $path ) {
 
   my @meta = <META6.json META6.info META.json META.info>;
 
-  my $meta-file = @meta.map( -> $file { $prefix.add: $file } ).first( *.f );
+  my $meta-file = @meta.map( -> $file { $path.add: $file } ).first( *.f );
 
-  die X::Pakku::Meta.new: meta => $prefix unless $meta-file;
+  die X::Pakku::Meta.new: meta => $path unless $meta-file;
 
   my $meta = Rakudo::Internals::JSON.from-json: $meta-file.slurp;
 
-  $meta<recman-src> = $prefix;
+  $meta<path> = $path;
 
   samewith $meta;
 
